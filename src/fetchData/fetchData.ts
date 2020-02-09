@@ -40,5 +40,11 @@ export const getEarthquakesInRadius = async (lat, long, maxRadiusKm, endTime) =>
 	console.log(`making a call on ${url}`)
 	const response = await fetch(url)
 
-	return response.json()
+	if (response.status !== 200) {
+		console.log(response)
+
+		return null
+	}
+
+	return (await response.json()).features
 }

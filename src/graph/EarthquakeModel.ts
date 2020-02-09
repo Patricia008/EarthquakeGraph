@@ -3,7 +3,7 @@ export default class EarthquakeModel {
 	properties: {
 		mag: number,
 		place: string,
-		time: Date,
+		time: string,
 		tsunami: number,
 		title: string,
 		magType: string,
@@ -16,5 +16,6 @@ export default class EarthquakeModel {
 
 	constructor(data) {
 		Object.assign(this, data)
+		this.properties.time = new Date(data.properties.time).toISOString()
 	}
 }

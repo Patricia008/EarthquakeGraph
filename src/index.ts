@@ -4,4 +4,3 @@ import GraphModel from './graph/GraphModel'
 
 const graph = new GraphModel()
 buildGraph(graph, counties.CHILE)
-graph.printGraph()
