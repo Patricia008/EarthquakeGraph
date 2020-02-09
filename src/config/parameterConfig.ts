@@ -9,4 +9,5 @@ export default {
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
 	RADIUS: 800,
+	MAX_GRAPH_SIZE: 100,
 }

@@ -5,7 +5,6 @@ export default class GraphModel {
 
 	addVertex = (v: EarthquakeModel) => {
 		this.adjList.set(v, [])
-		console.log(this.adjList)
 	}
 
 	addEdge = (v: EarthquakeModel, w: EarthquakeModel) => {
@@ -23,6 +22,14 @@ export default class GraphModel {
 	}
 
 	isEdgePresent = (a: EarthquakeModel, b: EarthquakeModel) => {
+		if (!this.isVertexPresent(a)) {
+			return false
+		}
+		if (!this.adjList.get(a)) {
+			this.adjList.set(a, [])
+
+			return false
+		}
 		this.adjList.get(a).forEach(vertex => {
 			if (vertex.id === b.id) {
 				return true

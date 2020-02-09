@@ -21,12 +21,16 @@ const getAdjacentQuakes = async (graph: GraphModel, quake: EarthquakeModel) => {
 	// ADD THEM AS CHILDREN
 	for (const entry of usgsData) {
 		const quakeModel = new EarthquakeModel(entry)
-		if (!graph.isVertexPresent(quake)) {
+		if (!graph.isVertexPresent(quakeModel)) {
 			graph.addVertex(quakeModel)
 		}
 		if (!graph.isEdgePresent(quake, quakeModel)) {
 			graph.addEdge(quake, quakeModel)
 		}
+		if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
+			return graph
+		}
+		graph = await getAdjacentQuakes(graph, quakeModel)
 	}
 
 	return graph
@@ -50,11 +54,8 @@ export const buildGraph = async (graph: GraphModel, county: counties) => {
 	// CONSIDER IT ROOT OF THE GRAPH
 	graph.addVertex(largestMagnitudeQuake)
 
-	// FIND SUBSEQUENT EARTHQUAKES
-
+	// FIND SUBSEQUENT EARTHQUAKES AND REPEAT THE PROCESS FOR THE CHILDREN
 	graph = await getAdjacentQuakes(graph, largestMagnitudeQuake)
-
-	// REPEAT THE PROCESS FOR THE CHILDREN
 
 	graph.printGraph()
 
