@@ -1,4 +1,5 @@
 import EarthquakeModel from './EarthquakeModel'
+import { writeToFile } from '../utils/fileHandlers'
 
 export default class GraphModel {
 	adjList: Map<EarthquakeModel, EarthquakeModel[]> = new Map<EarthquakeModel, EarthquakeModel[]>()
@@ -37,6 +38,18 @@ export default class GraphModel {
 		})
 
 		return false
+	}
+
+	writeToGeoJsonFile = (filename) => {
+		const geoJsonObject = {
+			type: 'FeatureCollection',
+			features: [],
+		}
+		for (const vertex of this.adjList.keys()) {
+			// const children = this.adjList.get(vertex)
+			geoJsonObject.features.push(vertex)
+		}
+		writeToFile(filename, JSON.stringify(geoJsonObject))
 	}
 
 	printGraph = () => {

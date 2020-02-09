@@ -57,7 +57,5 @@ export const buildGraph = async (graph: GraphModel, county: counties) => {
 	// FIND SUBSEQUENT EARTHQUAKES AND REPEAT THE PROCESS FOR THE CHILDREN
 	graph = await getAdjacentQuakes(graph, largestMagnitudeQuake)
 
-	graph.printGraph()
-
 	return usgsData
 }
