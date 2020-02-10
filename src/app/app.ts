@@ -8,3 +8,10 @@ export const computeAndExportToMap = async () => {
 	graph.printGraph()
 	graph.writeToGeoJsonFile('out/quakes.json')
 }
+
+export const computeAndExportToGraphJson = async () => {
+	const graph = new GraphModel()
+	await buildGraph(graph, counties.CHILE)
+	graph.printGraph()
+	graph.writeGraphToFile('src/graph.json')
+}

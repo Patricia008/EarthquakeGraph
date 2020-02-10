@@ -52,6 +52,11 @@ export default class GraphModel {
 		writeToFile(filename, JSON.stringify(geoJsonObject))
 	}
 
+	writeGraphToFile = (filename) => {
+		writeToFile(filename, JSON.stringify([...this.adjList]))
+	}
+
+
 	printGraph = () => {
 		for (const vertex of this.adjList.keys()) {
 			const children = this.adjList.get(vertex)
