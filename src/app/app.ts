@@ -1,4 +1,3 @@
-import { counties } from '../config/regionCoordinates'
 import { buildGraph } from '../graph/graphOps'
 import GraphModel from '../graph/GraphModel'
 
@@ -11,7 +10,7 @@ import GraphModel from '../graph/GraphModel'
 
 export const computeAndExportToGraphJson = async () => {
 	const graph = new GraphModel()
-	await buildGraph(graph, counties.ROMANIA)
+	await buildGraph(graph)
 	graph.printGraph()
 	graph.writeGraphToFile('src/graph.json')
 }

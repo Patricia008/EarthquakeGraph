@@ -36,10 +36,10 @@ const getAdjacentQuakes = async (graph: GraphModel, quake: EarthquakeModel) => {
 	return graph
 }
 
-export const buildGraph = async (graph: GraphModel, county: counties) => {
+export const buildGraph = async (graph: GraphModel) => {
 
 	// FIND MOST RECENT EARTHQUAKE IN REGION
-	const usgsData = await getEarthquakesInRectangle(coordinates[county], 'time')
+	const usgsData = await getEarthquakesInRectangle(coordinates[parameterConfig.START_POINT], 'time')
 
 	if (!(usgsData instanceof Array)) {
 		console.log('Failed Response', usgsData)

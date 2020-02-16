@@ -5,6 +5,5 @@ run with
 `npm start`
 <br/>
 
-Edit the desired start date and params in src/config/parameterConfig.ts<br/>
-Add the coordinates of the desired starting point in src/config/regionCoordinates.ts<br/>
-Edit in src/app/app.ts the second parameter of buildGraph to be your desired starting point<br/>
+Edit the desired starting point, start date and other params(radius, graph size, algorithm) in src/config/parameterConfig.ts<br/>
+If not already there, add the coordinates of the desired starting point in src/config/regionCoordinates.ts<br/>
