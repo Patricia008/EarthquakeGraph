@@ -5,7 +5,7 @@ dotenv.config()
 
 const startDate = new Date(2019, 11, 1)
 
-const algoEnum = {
+export const algoEnum = {
 	BREADTH_FIRST: 'breadth-first',
 	DEPTH_FIRST: 'depth-first',
 }
@@ -16,6 +16,6 @@ export default {
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
 	RADIUS: 800,
-	MAX_GRAPH_SIZE: 10,
-	ALGO: algoEnum.DEPTH_FIRST,
+	MAX_GRAPH_SIZE: 100,
+	ALGO: algoEnum.BREADTH_FIRST,
 }

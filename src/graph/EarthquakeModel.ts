@@ -13,6 +13,7 @@ export default class EarthquakeModel {
 		coordinates: number[],
 	}
 	id: string
+	visited: boolean
 
 	constructor(data) {
 		Object.assign(this, data)
