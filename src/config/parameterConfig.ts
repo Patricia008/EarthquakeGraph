@@ -15,7 +15,7 @@ export default {
 	START_POINT: counties.ROMANIA,
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
-	RADIUS: 800,
-	MAX_GRAPH_SIZE: 100,
-	ALGO: algoEnum.BREADTH_FIRST,
+	RADIUS: 1000,
+	MAX_GRAPH_SIZE: 50,
+	ALGO: algoEnum.DEPTH_FIRST,
 }

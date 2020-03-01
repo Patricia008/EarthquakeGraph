@@ -15,7 +15,7 @@ export default class GraphModel {
 	isVertexPresent = (v: EarthquakeModel) => {
 		for (const [key, value] of this.adjList) {
 			if (key.id === v.id) {
-				return true
+				return key
 			}
 		}
 

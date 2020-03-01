@@ -1,25 +1,68 @@
-import { coordinates, counties } from '../config/regionCoordinates'
+import { coordinates } from '../config/regionCoordinates'
 import { getEarthquakesInRadius, getEarthquakesInRectangle } from '../fetchData/fetchData'
 import parameterConfig from '../config/parameterConfig'
 import { algoEnum } from '../config/parameterConfig'
 import EarthquakeModel from './EarthquakeModel'
 import GraphModel from './GraphModel'
 
-async function depth_first_impl(graph: GraphModel, usgsData, quake) {
+async function depth_first_impl(graph: GraphModel, root) {
+
+	root.visited = true
+
+	// FIND SUBSEQUENT EARTHQUAKES AND REPEAT THE PROCESS FOR THE CHILDREN
+	const usgsData = await getAdjacentQuakes(graph, root)
+
+	if (!usgsData || usgsData.length === 0) {
+		console.log('No earthquakes found')
+
+		return graph
+	}
+
 	for (const entry of usgsData) {
 		if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
 			return graph
 		}
 		const quakeModel = new EarthquakeModel(entry)
-		if (!graph.isVertexPresent(quakeModel)) {
+
+		const presentVertex = graph.isVertexPresent(quakeModel)
+
+		if (!presentVertex) {
 			graph.addVertex(quakeModel)
 		}
-		if (!graph.isEdgePresent(quake, quakeModel)) {
-			graph.addEdge(quake, quakeModel)
+		if (!graph.isEdgePresent(root, quakeModel)) {
+			graph.addEdge(root, quakeModel)
+		}
+		if (presentVertex && presentVertex.visited === true) {
+			continue
+		}
+		await depth_first_impl(graph, quakeModel)
+	}
+
+	return graph
+}
+
+async function breadth_first_impl(graph: GraphModel, root: EarthquakeModel) {
+
+	root.visited = true
+	// FIND SUBSEQUENT EARTHQUAKES AND REPEAT THE PROCESS FOR THE CHILDREN
+	const usgsData = await getAdjacentQuakes(graph, root)
+
+	for (const entry of usgsData) {
+		const quakeModel = new EarthquakeModel(entry)
+		if (!graph.isVertexPresent(quakeModel)) {
+			graph.addVertex(quakeModel)
+			quakeModel.visited = true
+		}
+		if (!graph.isEdgePresent(root, quakeModel)) {
+			graph.addEdge(root, quakeModel)
 		}
 		if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
 			return graph
 		}
+	}
+	const q = [...graph.adjList.keys()].find(qu => !qu.visited)
+	if (!q) {
+		return graph
 	}
 
 	for (const entry of usgsData) {
@@ -30,30 +73,6 @@ async function depth_first_impl(graph: GraphModel, usgsData, quake) {
 		}
 	}
 
-	return graph
-}
-
-async function breadth_first_impl(graph: GraphModel, usgsData, quake) {
-	for (const entry of usgsData) {
-		if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
-			return graph
-		}
-		const quakeModel = new EarthquakeModel(entry)
-		if (!graph.isVertexPresent(quakeModel)) {
-			graph.addVertex(quakeModel)
-			quakeModel.visited = true
-		}
-		if (!graph.isEdgePresent(quake, quakeModel)) {
-			graph.addEdge(quake, quakeModel)
-		}
-		if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
-			return graph
-		}
-	}
-	const q = [...graph.adjList.keys()].find(qu => !qu.visited)
-	if (!q) {
-		return graph
-	}
 	graph = await getAdjacentQuakes(graph, q)
 
 	return graph
@@ -62,7 +81,7 @@ async function breadth_first_impl(graph: GraphModel, usgsData, quake) {
 const getAdjacentQuakes = async (graph: GraphModel, quake: EarthquakeModel) => {
 
 	if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
-		return graph
+		return []
 	}
 	// [lat, long]
 	const coord = quake.geometry.coordinates
@@ -71,20 +90,7 @@ const getAdjacentQuakes = async (graph: GraphModel, quake: EarthquakeModel) => {
 	const usgsData = await getEarthquakesInRadius(
 		coord[0], coord[1], parameterConfig.RADIUS, quake.properties.time)
 
-	if (usgsData.length === 0) {
-		console.log('No earthquakes found')
-
-		return graph
-	}
-
-	// ADD THEM AS CHILDREN
-	if (parameterConfig.ALGO === algoEnum.DEPTH_FIRST) {
-		graph = await depth_first_impl(graph, usgsData, quake)
-	} else if (parameterConfig.ALGO === algoEnum.BREADTH_FIRST) {
-		graph = await breadth_first_impl(graph, usgsData, quake)
-	}
-
-	return graph
+	return usgsData
 }
 
 export const buildGraph = async (graph: GraphModel) => {
@@ -105,8 +111,13 @@ export const buildGraph = async (graph: GraphModel) => {
 	// CONSIDER IT ROOT OF THE GRAPH
 	graph.addVertex(largestMagnitudeQuake)
 
-	// FIND SUBSEQUENT EARTHQUAKES AND REPEAT THE PROCESS FOR THE CHILDREN
-	graph = await getAdjacentQuakes(graph, largestMagnitudeQuake)
+	// ADD THEM AS CHILDREN
+	if (parameterConfig.ALGO === algoEnum.DEPTH_FIRST) {
+		graph = await depth_first_impl(graph, largestMagnitudeQuake)
+	} else if (parameterConfig.ALGO === algoEnum.BREADTH_FIRST) {
+		graph = await breadth_first_impl(graph, largestMagnitudeQuake)
+	}
+
 
 	return usgsData
 }
