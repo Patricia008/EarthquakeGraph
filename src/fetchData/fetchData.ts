@@ -25,11 +25,11 @@ export const getEarthquakesInRectangle = async ({minLat, minLong, maxLat, maxLon
 	return (await response.json()).features
 }
 
-export const getEarthquakesInRadius = async (lat, long, maxRadiusKm, endTime) => {
+export const getEarthquakesInRadius = async (lat, long, maxRadiusKm, startTime) => {
 	const queryParams = new URLSearchParams()
+	// queryParams.set('starttime', parameterConfig.STARTTIME)
+	// starttime should be the time of the parent quake
 	queryParams.set('starttime', parameterConfig.STARTTIME)
-	// endtime should be the time of the parent quake
-	queryParams.set('endtime', endTime)
 	queryParams.set('latitude', lat)
 	queryParams.set('longitude', long)
 	queryParams.set('maxradiuskm', maxRadiusKm)

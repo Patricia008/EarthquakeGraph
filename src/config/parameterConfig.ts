@@ -3,19 +3,20 @@ import { counties } from '../config/regionCoordinates'
 
 dotenv.config()
 
-const startDate = new Date(2019, 11, 1)
+const startDate = new Date(1800, 11, 1)
 
 export const algoEnum = {
-	BREADTH_FIRST: 'breadth-first',
+	PROPAGATION: 'propagation',
 	DEPTH_FIRST: 'depth-first',
+	BREADTH_FIRST: 'breadth-first',
 }
 
 export default {
 	USGS_API_URL: process.env.USGS_API_URL,
-	START_POINT: counties.ROMANIA,
+	START_POINT: counties.CHILE,
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
-	RADIUS: 1000,
-	MAX_GRAPH_SIZE: 50,
-	ALGO: algoEnum.DEPTH_FIRST,
+	RADIUS: 700,
+	MAX_GRAPH_SIZE: 100,
+	ALGO: algoEnum.BREADTH_FIRST,
 }

@@ -9,7 +9,7 @@ Edit the desired starting point, start date and other params(radius, graph size,
 If not already there, add the coordinates of the desired starting point in src/config/regionCoordinates.ts<br/>
 
 
-# To debug with VSCode
+### To debug with VSCode
 run
 `tsc`
 to generate the js files in the 'built' folder<br/>
