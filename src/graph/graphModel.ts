@@ -66,9 +66,9 @@ export default class GraphModel {
 				continue
 			}
 			for (const child of children) {
-				auxString += child.properties.title + ', '
+				auxString += child.properties.title + ` (${child.properties.time})` + ', '
 			}
-			console.log(vertex.properties.title + ' -> ' + auxString)
+			console.log(vertex.properties.title + ` (${vertex.properties.time})` + ' -> ' + auxString)
 		}
 	}
 }

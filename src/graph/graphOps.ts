@@ -1,5 +1,5 @@
 import { coordinates } from '../config/regionCoordinates'
-import { getEarthquakesInRadius, getEarthquakesInRectangle } from '../fetchData/fetchData'
+import { getEarthquakesInRadius } from '../fetchData/fetchData'
 import parameterConfig from '../config/parameterConfig'
 import { algoEnum } from '../config/parameterConfig'
 import EarthquakeModel from './EarthquakeModel'
@@ -107,8 +107,8 @@ async function breadth_first_impl(graph: GraphModel, root: EarthquakeModel) {
 			if (!presentVertex) {
 				graph.addVertex(quakeModel)
 			}
-			if (!graph.isEdgePresent(root, quakeModel)) {
-				graph.addEdge(root, quakeModel)
+			if (!graph.isEdgePresent(q, quakeModel)) {
+				graph.addEdge(q, quakeModel)
 			}
 			if (!presentVertex || presentVertex.visited === false) {
 				auxVertices.push(quakeModel)
@@ -132,15 +132,20 @@ const getAdjacentQuakes = async (graph: GraphModel, quake: EarthquakeModel) => {
 
 	// CALL API FOR EARTHQUAKES THAT HAPPENED BEFORE THE CURRENT ONE
 	const usgsData = await getEarthquakesInRadius(
-		coord[0], coord[1], parameterConfig.RADIUS, quake.properties.time)
+		{ lat: coord[0], long: coord[1] }, parameterConfig.RADIUS, quake.properties.time)
 
 	return usgsData
 }
 
 export const buildGraph = async (graph: GraphModel) => {
 
-	// FIND MOST RECENT EARTHQUAKE IN REGION
-	const usgsData = await getEarthquakesInRectangle(coordinates[parameterConfig.START_POINT], 'time')
+	// FIND GREATEST MAGNITUDE EARTHQUAKE IN REGION
+	const usgsData = await getEarthquakesInRadius(
+		coordinates[parameterConfig.START_POINT],
+		parameterConfig.RADIUS,
+		parameterConfig.STARTTIME,
+		'magnitude',
+	)
 
 	if (!(usgsData instanceof Array)) {
 		console.log('Failed Response', usgsData)

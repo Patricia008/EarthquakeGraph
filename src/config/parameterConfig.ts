@@ -13,10 +13,11 @@ export const algoEnum = {
 
 export default {
 	USGS_API_URL: process.env.USGS_API_URL,
-	START_POINT: counties.CHILE,
+	START_POINT: counties.ROMANIA,
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
-	RADIUS: 700,
-	MAX_GRAPH_SIZE: 100,
-	ALGO: algoEnum.BREADTH_FIRST,
+	RADIUS: 400,
+	MAX_GRAPH_SIZE: 200,
+	MAX_NR_OF_CHILDREN: 10,
+	ALGO: algoEnum.DEPTH_FIRST,
 }

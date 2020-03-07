@@ -25,16 +25,16 @@ export const getEarthquakesInRectangle = async ({minLat, minLong, maxLat, maxLon
 	return (await response.json()).features
 }
 
-export const getEarthquakesInRadius = async (lat, long, maxRadiusKm, startTime) => {
+export const getEarthquakesInRadius = async ({lat, long}, maxRadiusKm, startTime, orderBy = 'magnitude') => {
 	const queryParams = new URLSearchParams()
 	// queryParams.set('starttime', parameterConfig.STARTTIME)
 	// starttime should be the time of the parent quake
-	queryParams.set('starttime', parameterConfig.STARTTIME)
+	queryParams.set('starttime', startTime)
 	queryParams.set('latitude', lat)
 	queryParams.set('longitude', long)
 	queryParams.set('maxradiuskm', maxRadiusKm)
 	queryParams.set('limit', parameterConfig.LIMIT)
-	queryParams.set('orderby', 'magnitude')
+	queryParams.set('orderby', orderBy)
 
 	const url = `${parameterConfig.USGS_API_URL}?${queryParams.toString()}`
 	console.log(`making a call on ${url}`)
