@@ -1,7 +1,8 @@
-export enum counties {
+export enum regions {
 	TIMIS = 'Timis',
 	ROMANIA = 'Romania',
 	CHILE = 'Chile',
+	MEDITERANEAN_SEE = 'MediteraneanSee',
 }
 
 export const coordinates = {
@@ -16,5 +17,9 @@ export const coordinates = {
 	Chile: {
 		lat: '-27.277424',
 		long: '-68.5',
+	},
+	MediteraneanSee: {
+		lat: '38.709855',
+		long: '14.108099',
 	},
 }

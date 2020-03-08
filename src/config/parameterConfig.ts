@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv'
-import { counties } from '../config/regionCoordinates'
+import { regions } from '../config/regionCoordinates'
 
 dotenv.config()
 
@@ -13,11 +13,11 @@ export const algoEnum = {
 
 export default {
 	USGS_API_URL: process.env.USGS_API_URL,
-	START_POINT: counties.ROMANIA,
+	START_POINT: regions.ROMANIA,
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
 	RADIUS: 400,
-	MAX_GRAPH_SIZE: 200,
+	MAX_GRAPH_SIZE: 100,
 	MAX_NR_OF_CHILDREN: 10,
 	ALGO: algoEnum.DEPTH_FIRST,
 }

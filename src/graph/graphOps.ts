@@ -127,12 +127,12 @@ const getAdjacentQuakes = async (graph: GraphModel, quake: EarthquakeModel) => {
 	if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
 		return []
 	}
-	// [lat, long]
+	// [long, lat]
 	const coord = quake.geometry.coordinates
 
 	// CALL API FOR EARTHQUAKES THAT HAPPENED BEFORE THE CURRENT ONE
 	const usgsData = await getEarthquakesInRadius(
-		{ lat: coord[0], long: coord[1] }, parameterConfig.RADIUS, quake.properties.time)
+		{ long: coord[0], lat: coord[1] }, parameterConfig.RADIUS, quake.properties.time)
 
 	return usgsData
 }

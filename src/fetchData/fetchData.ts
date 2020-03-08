@@ -30,8 +30,8 @@ export const getEarthquakesInRadius = async ({lat, long}, maxRadiusKm, startTime
 	// queryParams.set('starttime', parameterConfig.STARTTIME)
 	// starttime should be the time of the parent quake
 	queryParams.set('starttime', startTime)
-	queryParams.set('latitude', lat)
 	queryParams.set('longitude', long)
+	queryParams.set('latitude', lat)
 	queryParams.set('maxradiuskm', maxRadiusKm)
 	queryParams.set('limit', parameterConfig.LIMIT)
 	queryParams.set('orderby', orderBy)

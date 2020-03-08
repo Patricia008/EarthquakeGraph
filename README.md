@@ -13,7 +13,7 @@ Picture generated with params: <br/>
 * START_POINT: counties.ROMANIA,
 * STARTTIME: 1.11.1800,
 * RADIUS: 400,
-* MAX_GRAPH_SIZE: 200,
+* MAX_GRAPH_SIZE: 100,
 * ALGO: algoEnum.DEPTH_FIRST,
 
 run with
