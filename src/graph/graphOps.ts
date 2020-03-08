@@ -22,6 +22,12 @@ async function depth_first_impl(graph: GraphModel, root) {
 		if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
 			return graph
 		}
+
+		// take into consideration no more than MAX_NR_OF_CHILDREN earthquakes
+		if (graph.adjList.get(root).length === parameterConfig.MAX_NR_OF_CHILDREN) {
+			break
+		}
+
 		const quakeModel = new EarthquakeModel(entry)
 
 		const presentVertex = graph.isVertexPresent(quakeModel)
@@ -99,6 +105,10 @@ async function breadth_first_impl(graph: GraphModel, root: EarthquakeModel) {
 		for (const entry of usgsData) {
 			if (graph.adjList.size >= parameterConfig.MAX_GRAPH_SIZE) {
 				return graph
+			}
+			// take into consideration no more than MAX_NR_OF_CHILDREN earthquakes
+			if (graph.adjList.get(q).length === parameterConfig.MAX_NR_OF_CHILDREN) {
+				break
 			}
 			const quakeModel = new EarthquakeModel(entry)
 

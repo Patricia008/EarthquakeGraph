@@ -13,11 +13,11 @@ export const algoEnum = {
 
 export default {
 	USGS_API_URL: process.env.USGS_API_URL,
-	START_POINT: regions.ROMANIA,
+	START_POINT: regions.MEDITERANEAN_SEA,
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
-	RADIUS: 40,
-	MAX_GRAPH_SIZE: 100,
-	MAX_NR_OF_CHILDREN: 10,
+	RADIUS: 200,
+	MAX_GRAPH_SIZE: 80,
+	MAX_NR_OF_CHILDREN: 5,
 	ALGO: algoEnum.BREADTH_FIRST,
 }

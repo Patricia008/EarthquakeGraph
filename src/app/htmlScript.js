@@ -67,6 +67,7 @@ function createAndAddPoint(Graphic, graphicsLayer, long, lat) {
 }
 
 function createAndAddArrow(PMS, Graphic, graphicsLayer, long1, lat1, long2, lat2) {
+	let animating = true;
 	const simpleLineSymbol = {
 		type: "simple-line",
 		color: [226, 119, 40], // orange
