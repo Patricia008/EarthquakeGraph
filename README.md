@@ -7,14 +7,24 @@ First specify a starting point. From there, the algorithm finds the greatest mag
 
 Size of graph can be specified, Arcgis map supports a maximum of about 800 points.<br/>
 
-![system schema](out/mapExample.png)
-
 Picture generated with params: <br/>
 * START_POINT: counties.ROMANIA,
 * STARTTIME: 1.11.1800,
 * RADIUS: 400,
 * MAX_GRAPH_SIZE: 100,
 * ALGO: algoEnum.DEPTH_FIRST,
+
+![system schema](out/mapExampleDF.png)
+
+Picture generated with params: <br/>
+* START_POINT: counties.ROMANIA,
+* STARTTIME: 1.11.1800,
+* RADIUS: 40,
+* MAX_GRAPH_SIZE: 100,
+* ALGO: algoEnum.BREADTH_FIRST,
+
+![system schema](out/mapExampleBF.png)
+
 
 run with
 `npm start`

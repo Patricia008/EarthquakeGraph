@@ -16,8 +16,8 @@ export default {
 	START_POINT: regions.ROMANIA,
 	STARTTIME: startDate.toISOString(),
 	LIMIT: '20000',
-	RADIUS: 400,
+	RADIUS: 40,
 	MAX_GRAPH_SIZE: 100,
 	MAX_NR_OF_CHILDREN: 10,
-	ALGO: algoEnum.DEPTH_FIRST,
+	ALGO: algoEnum.BREADTH_FIRST,
 }
