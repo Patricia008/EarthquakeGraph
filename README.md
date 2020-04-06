@@ -21,7 +21,7 @@ Meaning for each parent earthquake, it took the top 5 magnitude subsequent earth
 
 ![system schema](out/mapExampleBFmediteranean.png)
 
-Same config as before, except RADIUS = 200  <br/>
+Same config as before, except RADIUS = 200:  <br/>
 
 ![system schema](out/mapExampleBFmediteranean200r.png)
 

@@ -3,7 +3,7 @@ import { regions } from '../config/regionCoordinates'
 
 dotenv.config()
 
-const startDate = new Date(1800, 11, 1)
+const startDate = new Date(1900, 11, 1)
 
 export const algoEnum = {
 	PROPAGATION: 'propagation',
@@ -11,13 +11,16 @@ export const algoEnum = {
 	BREADTH_FIRST: 'breadth-first',
 }
 
+const maxNrOfChildren = 3
+
 export default {
 	USGS_API_URL: process.env.USGS_API_URL,
-	START_POINT: regions.MEDITERANEAN_SEA,
+	START_POINT: regions.CHILE,
 	STARTTIME: startDate.toISOString(),
-	LIMIT: '20000',
-	RADIUS: 200,
-	MAX_GRAPH_SIZE: 80,
-	MAX_NR_OF_CHILDREN: 5,
-	ALGO: algoEnum.BREADTH_FIRST,
+	DAYS_BETWEEN_QUAKES: 10000,
+	LIMIT: '' + maxNrOfChildren,
+	RADIUS: 20000,
+	MAX_GRAPH_SIZE: 500,
+	MAX_NR_OF_CHILDREN: maxNrOfChildren,
+	ALGO: algoEnum.DEPTH_FIRST,
 }

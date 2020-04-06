@@ -26,10 +26,14 @@ export const getEarthquakesInRectangle = async ({minLat, minLong, maxLat, maxLon
 }
 
 export const getEarthquakesInRadius = async ({lat, long}, maxRadiusKm, startTime, orderBy = 'magnitude') => {
+
+	const endTime = new Date(startTime)
+	endTime.setDate(new Date(startTime).getDate() + parameterConfig.DAYS_BETWEEN_QUAKES)
 	const queryParams = new URLSearchParams()
-	// queryParams.set('starttime', parameterConfig.STARTTIME)
 	// starttime should be the time of the parent quake
 	queryParams.set('starttime', startTime)
+	// endtime = the current event's time plus duration
+	queryParams.set('endtime', endTime.toISOString())
 	queryParams.set('longitude', long)
 	queryParams.set('latitude', lat)
 	queryParams.set('maxradiuskm', maxRadiusKm)
